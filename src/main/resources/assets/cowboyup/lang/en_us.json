@@ -1,0 +1,12 @@
+{
+	"key.categories.CowboyUp": "CowboyUp",
+    "key.CowboyUp.HorseSwimsWithRider.desc": "Swim With Rider",
+    "key.CowboyUp.HorseStaysCommand.desc": "Horse Stays On Dismount",
+    "msg.CowboyUp.HorseSwimsWithRider.disabled": "CoyboyUp Swim with rider disabled.",
+    "msg.CowboyUp.HorseSwimsWithRider.enabled": "CoyboyUp Swim with rider enabled.",
+    "msg.CowboyUp.HorseSwimsWithRider.config.desc": "Horse can swim with a rider?",
+    "msg.CowboyUp.HorseStaysCommand.disabled": "CowboyUp Stay command disabled.",
+    "msg.CowboyUp.HorseStaysCommand.enabled": "CowboyUp Stay command enabled.",
+    "msg.CowboyUp.HorseStaysCommand.config.desc": "Horse stays when dismounted or unleashed",
+    "msg.CowboyUp.updateAvailable": "A new version of CowboyUp is available"
+}
