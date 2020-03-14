@@ -11,8 +11,11 @@ import org.apache.logging.log4j.Logger;
 
 import frakier.cowboyup.config.CowboyUpConfig;
 import frakier.cowboyup.worker.HorseSwim;
+import frakier.cowboyup.worker.LeashReturn;
 import frakier.cowboyup.worker.HorseStays;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.passive.horse.AbstractHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent.KeyInputEvent;
@@ -63,18 +66,29 @@ public class CowboyUp {
 
         @SubscribeEvent(priority= EventPriority.NORMAL, receiveCanceled=true)
         public static void clientTickEvent(final PlayerTickEvent event) {
-        	if (event.player != null) {
-        		HorseSwim.TickEvent(event);
+        	//make sure there is a player, a horse 
+        	if (event.player != null && event.player.getRidingEntity() != null) {
+        		//and the player is riding the horse
+        		Entity horse = event.player.getRidingEntity();
+        		if (horse.isRidingOrBeingRiddenBy(CowboyUp.player)) {
+        			HorseSwim.TickEvent(event);
+        		}
         	}
-        	if (Minecraft.getInstance().isGameFocused() && inti == true) {
-        		inti=false;
-        		HorseStays.init(event.player);
+        	
+        	if (Minecraft.getInstance().isGameFocused() && (!Minecraft.getInstance().isGamePaused())) {
+        		if (inti == true) {
+        			inti = false;
+        			player = event.player;
+        			HorseStays.init();
+            		HorseSwim.init();
+            		LeashReturn.init();
+        		}
         	}
         }
         
         @SubscribeEvent
         public static void onKeyInput(KeyInputEvent event) {
-        	if (Minecraft.getInstance().isGameFocused()) {
+        	if (Minecraft.getInstance().isGameFocused() && (!Minecraft.getInstance().isGamePaused())) {
 	        	HorseSwim.onKeyInput(event);
 	        	HorseStays.onKeyInput(event);
         	}
@@ -82,15 +96,18 @@ public class CowboyUp {
         
         @SubscribeEvent
         public static void onInteract(PlayerInteractEvent.EntityInteract event) {
-        	if (Minecraft.getInstance().isGameFocused()) {
-        		HorseStays.onInteract(event);
+        	if (Minecraft.getInstance().isGameFocused() && (!Minecraft.getInstance().isGamePaused())) {
+        		LeashReturn.onInteract(event);
         	}
         }
         
         @SubscribeEvent
         public static void onMount(EntityMountEvent event) {
-        	if (Minecraft.getInstance().isGameFocused()) {
-        		HorseStays.onMount(event);
+        	if (event.getEntityMounting().equals(player) && Minecraft.getInstance().isGameFocused() && (!Minecraft.getInstance().isGamePaused())) {
+        		AbstractHorseEntity t = (AbstractHorseEntity) event.getEntityBeingMounted().getEntity();
+        		if (t.isHorseSaddled()) {
+        			HorseStays.onMount(event);
+        		}
         	}
         }
         
