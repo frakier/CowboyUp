@@ -15,7 +15,8 @@ public class KeyBindings {
 
     public static final KeyBinding[] KEYBINDINGS = {
         new KeyBinding("key.CowboyUp.HorseSwimsWithRider.desc", GLFW.GLFW_KEY_KP_MULTIPLY, "key.categories.CowboyUp"),
-        new KeyBinding("key.CowboyUp.HorseStaysCommand.desc", GLFW.GLFW_KEY_KP_DIVIDE, "key.categories.CowboyUp")
+        new KeyBinding("key.CowboyUp.HorseStaysCommand.desc", GLFW.GLFW_KEY_KP_DIVIDE, "key.categories.CowboyUp"),
+        new KeyBinding("key.CowboyUp.ReturnLeash.desc", GLFW.GLFW_KEY_KP_SUBTRACT, "key.categories.CowboyUp")
     };
 
     @SubscribeEvent

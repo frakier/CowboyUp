@@ -8,5 +8,8 @@
     "msg.CowboyUp.HorseStaysCommand.disabled": "CowboyUp Stay command disabled.",
     "msg.CowboyUp.HorseStaysCommand.enabled": "CowboyUp Stay command enabled.",
     "msg.CowboyUp.HorseStaysCommand.config.desc": "Horse stays when dismounted or unleashed",
+    "msg.CowboyUp.LeashReturns.disabled": "CowboyUp Leash return disabled.",
+    "msg.CowboyUp.LeashReturns.enabled": "CowboyUp Leash return enabled.",
+    "msg.CowboyUp.LeashReturns.config.desc": "leash returns to inventory if possible",
     "msg.CowboyUp.updateAvailable": "A new version of CowboyUp is available"
 }
