@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import frakier.cowboyup.config.CowboyUpConfig;
+import frakier.cowboyup.init.ClientRegistrationHandler;
 import frakier.cowboyup.worker.HorseSwim;
 import frakier.cowboyup.worker.LeashReturn;
 import frakier.cowboyup.worker.HorseStays;
@@ -28,31 +29,28 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 @Mod(CowboyUp.MODID)
 public class CowboyUp {
 	
 //	TODO: see if you can make the horse water breathing temporarily or move the eye level up half a block.
     public static final String MODID = "cowboyup";
-	public static final String MOD_VERSION = "2.0.1";
 	public static final String MOD_NAME = "CowboyUp";
 	public static final String CONFIG_FILE = MODID+"-common.toml";
 	public static boolean firstRun = false;
-	public static boolean inti = true;
-	public static String MC_VERSION;
 	public static boolean debug = false;
 	
 	private static final Logger LOGGER = LogManager.getLogger();
 	
 	public static Minecraft mc = Minecraft.getInstance();
-	public static PlayerEntity player = mc.player;
+	
 
     public CowboyUp() {
     	if (Files.notExists(Paths.get("config", CONFIG_FILE))){
         	firstRun = true;
         }
     	if (CowboyUp.firstRun) {
-        	CowboyUp.MC_VERSION = mc.getVersion();
             //if (!CowboyUp.versionChecker.isLatestVersion()) {
             //    updateMessage();
             //}
@@ -62,98 +60,11 @@ public class CowboyUp {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CowboyUpConfig.COMMONSPEC,CONFIG_FILE);
     }
     
-    @EventBusSubscriber(value = Dist.CLIENT)
-    public static class ClientEventHandler {
-
-        @SubscribeEvent(priority= EventPriority.NORMAL, receiveCanceled=true)
-        public static void clientTickEvent(final PlayerTickEvent event) {
-        	//make sure there is a player, a horse 
-        	if (event.player != null && event.player.getRidingEntity() != null) {
-        		
-        		Entity target = event.player.getRidingEntity();
-        		
-        		//and the player is riding a horse, donkey or mule
-        		if (target.getEntity().getType() == EntityType.HORSE || 
-    					target.getEntity().getType() == EntityType.DONKEY || 
-    					target.getEntity().getType() == EntityType.MULE) {
-        			
-            		Entity horse = (AbstractHorseEntity) event.player.getRidingEntity();
-            			if (((AbstractHorseEntity) horse).isHorseSaddled() && horse.isRidingOrBeingRiddenBy(CowboyUp.player)) {
-    	        			HorseSwim.TickEvent(event);
-    	        		}
-    			}
-        	}
-        	
-        	if (Minecraft.getInstance().isGameFocused() && (!Minecraft.getInstance().isGamePaused())) {
-        		if (inti == true) {
-        			inti = false;
-        			player = event.player;
-        			HorseStays.init();
-            		HorseSwim.init();
-            		LeashReturn.init();
-        		}
-        	}
-        }
-        
-        @SubscribeEvent
-        public static void onKeyInput(KeyInputEvent event) {
-        	if (Minecraft.getInstance().isGameFocused() && (!Minecraft.getInstance().isGamePaused())) {
-	        	HorseSwim.onKeyInput(event);
-	        	HorseStays.onKeyInput(event);
-        	}
-        }
-        
-        @SubscribeEvent
-        public static void onInteract(PlayerInteractEvent.EntityInteract event) {
-        	if (Minecraft.getInstance().isGameFocused() && (!Minecraft.getInstance().isGamePaused())) {
-        		LeashReturn.onInteract(event);
-        	}
-        }
-        
-        @SubscribeEvent
-        public static void onMount(EntityMountEvent event) {
-        	
-        	if (event.getEntityMounting().equals(player) && Minecraft.getInstance().isGameFocused() && (!Minecraft.getInstance().isGamePaused())) {
-        		
-        		Entity target = event.getEntityBeingMounted().getEntity();
-	        		
-        		//and the player is riding a horse, donkey or mule
-        		if (target.getEntity().getType() == EntityType.HORSE || 
-    					target.getEntity().getType() == EntityType.DONKEY || 
-    					target.getEntity().getType() == EntityType.MULE) {
-        			
-            		Entity horse = (AbstractHorseEntity) event.getEntityBeingMounted().getEntity();
-            			if (((AbstractHorseEntity) horse).isHorseSaddled()) {
-            				HorseStays.onMount(event);
-    	        		}
-    			}
-	        }
-        }
-        
-        /*
-        @SubscribeEvent
-        public static void joinWorld(final EntityJoinWorldEvent event) {
-        	//StepChanger.init();
-        }*/
-        
-        /*@SubscribeEvent
-        public static void loadComplete(FMLLoadCompleteEvent event) {
-        	if (CowboyUp.debug) {LOGGER.debug("loadComplete");}
-        }
-        */
-        
-        @SubscribeEvent
-        public static void unload (WorldEvent.Unload event) {
-        	LOGGER.info("WorldEvent.Unload");
-        	inti=true;
-        }
-        /*
-        @SubscribeEvent
-        public static void load (WorldEvent.Load event) {
-        	if (CowboyUp.debug) {LOGGER.info("WorldEvent.Load");}
-        	//StepChanger.init();
-        }*/
-    }
+    public void onClientInit(FMLClientSetupEvent event){
+		ClientRegistrationHandler.setupClient();
+	}
+    
+    
     
     private void updateMessage() {
     	/* disabled for now

@@ -1,41 +1,61 @@
 CowboyUp
 
+Horse swims with rider in saddle for a time.
+
+cowboy up (verb) - to toughen up...
+"When things get tough you get back up, dust yourself off and keep going."
+
+Ever wanted to cross a water source without drowning the horse or yourself.
+With CowboyUp you can ride your horse while it swims for a time {configurable}.
+Once the time is up the horse starts sinking as normal.
+If you ride off a cliff you have to get off the horse so it can surface but then you
+can ride it to shore if the shore is close enough.
+Also has function to help retrieve a leash {configurable} and to try and get the horse to stay when you dismount {configurable}.
+
 Forge mod, client side only.
 
-Control are bound like this by default [you can always go in and escape/blank them if you wish].
-	HorseSwimsWithRider * [on keypad]
-	HorseStaysCommand / [on keypad]
-	ReturnLeash - [on keypad]
-	
+ 
+Spoiler (click to hide)
+
+Control are bound like this by default [you can always go in to the controls menu and escape/blank/change them if you wish].
+HorseSwimsWithRider * [multiply on keypad]
+HorseStaysCommand / [divide on keypad]
+ReturnLeash - [subtract on keypad]
+
 When the mod starts the status of the separate functions are displayed after the first run and a
-config is created you can disable this if you want by editing the config.
+config is created. You can disable the status display if you want by editing the config after the first run.
 
 Current Goals...
-1. Swim with the horse for a time/distance.
-		{configurable} swim with horse {default is true}
-		{configurable}...the time/distance is in blocks but is also tied to ticks [every 30 ticks counts as a block traveled as well].
-		{configurable}...swimming is slow
-		{configurable}...wading is a little faster
 
-		Note: Wading does not count as swimming but you have to leave the water to reset the swim time.
-	
-2. The horse should stay when you get off.
-		{configurable} horse stays when dismounting {default is true}
-		The code is there but it just does not seem to take [apply] some times.
-		So I basically call the code a couple of times to get past lag it seems to work
-		but we are on a small server, time will tell.
-	
-		Note: If you log out and back into a single player world the horse will start to wander.
-		Still need to check on the server.
-	
-3. Leads should not pop off in some random direction
-		{configurable} for the lead to be added back to your inventory if it can.
-	
-Future Goals...
-	Add a hobble or stake that keeps the horse in one spot.
-	Set the hobble up on world load to look for the nearest horse within a set number of 
-	blocks and tether the horse to the spot, or maybe require the horse to be named.
-	Who knows.
-	
-	Make a custom window for config so I only need one key bound in controls.
+1. HorseSwimWithRider - Swim with the horse for a time/distance.
+{configurable} swim with horse {default is true}
+{configurable}...the time/distance is in blocks but is also tied to ticks [every 30 ticks counts as a block traveled as well].
+{configurable}...swimming is slow [deeper than 1 block]
+{configurable}...wading is a little faster [1 block deep]
+
+Note: Wading does not count as swimming but you have to leave the water to reset the swim time.
+Note: Or dismount [see below working on way to prevent this]
+
+2. HorseStaysComman - The horse should stay when you get off.
+{configurable} horse stays when dismounting {default is true}
+The code is there but it just does not seem to take [apply] some times.
+So I basically call the code a couple of times to get past lag it seems to work on single client.
+The jury is still out on the server.
+Note: If you log out and back into a single player world the horse will start to wander.
+Still need to check on the server.
+
+3. Leads should not pop off in some random direction when not breaking.
+{configurable} for the lead to be added back to your inventory if it can.
+
+Future Goals:...
+-Add a hobble or stake that keeps the horse in one spot/area.
+Set the hobble up on world load to look for the nearest horse within a set number of
+blocks and tether the horse to the spot, or maybe require the horse to be named.
+Who knows.
+
+-Make a custom window for config so I only need one key bound in controls.
+
+TODO:..
+-Prevent dismounting in water from resetting the distance timer.
+
 	

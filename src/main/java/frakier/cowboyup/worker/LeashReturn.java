@@ -20,8 +20,10 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent.KeyInputEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.DistExecutor;
 
 public class LeashReturn {
 	
@@ -39,7 +41,8 @@ public class LeashReturn {
 		//so we have to handle both hands
 		 
 		//player is interacting with a horse
-		if (CowboyUp.player instanceof PlayerEntity  && event.getTarget() instanceof AnimalEntity) {
+		
+		if (CowboyUp.mc.player instanceof PlayerEntity  && event.getTarget() instanceof AnimalEntity) {
 			 //main hand used
 			 if(event.getHand().equals(Hand.MAIN_HAND)) {
 				 if (CowboyUp.debug) {LOGGER.info("LeashReturn onInteract main hand");}
@@ -151,7 +154,7 @@ public class LeashReturn {
 	            m = m + (Object) TextFormatting.GREEN + I18n.format(LeashReturns.ENABLED.getDesc());
 	        }
 	
-	        CowboyUp.player.sendMessage((ITextComponent) new StringTextComponent(m));
+	        CowboyUp.mc.player.sendMessage((ITextComponent) new StringTextComponent(m));
 		}
     }
 	

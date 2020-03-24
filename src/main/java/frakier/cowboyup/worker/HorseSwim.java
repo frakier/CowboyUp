@@ -196,7 +196,7 @@ public class HorseSwim {
 	            m = m + (Object) TextFormatting.GREEN + I18n.format(HorseSwimsWithRider.ENABLED.getDesc());
 	        }
 	
-	        CowboyUp.player.sendMessage((ITextComponent) new StringTextComponent(m));
+	        CowboyUp.mc.player.sendMessage((ITextComponent) new StringTextComponent(m));
     	}
     }
     

@@ -97,7 +97,7 @@ public class HorseStays {
 	            m = m + (Object) TextFormatting.GREEN + I18n.format(HorseStaysCommand.ENABLED.getDesc());
 	        }
 	
-	        CowboyUp.player.sendMessage((ITextComponent) new StringTextComponent(m));
+	        CowboyUp.mc.player.sendMessage((ITextComponent) new StringTextComponent(m));
 		}
     }
 	
