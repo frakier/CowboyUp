@@ -10,10 +10,7 @@ import org.apache.logging.log4j.LogManager;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.passive.horse.AbstractHorseEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
@@ -196,7 +193,7 @@ public class HorseSwim {
 	            m = m + (Object) TextFormatting.GREEN + I18n.format(HorseSwimsWithRider.ENABLED.getDesc());
 	        }
 	
-	        CowboyUp.mc.player.sendMessage((ITextComponent) new StringTextComponent(m));
+	        mc.player.sendMessage((ITextComponent) new StringTextComponent(m));
     	}
     }
     

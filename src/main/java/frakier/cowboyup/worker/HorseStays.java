@@ -20,6 +20,8 @@ import net.minecraftforge.event.entity.EntityMountEvent;
 
 public class HorseStays {
 	
+	public static Minecraft mc = Minecraft.getInstance();
+	
 	private static final Logger LOGGER = LogManager.getLogger();
 	
 	public HorseStays() {}
@@ -97,7 +99,7 @@ public class HorseStays {
 	            m = m + (Object) TextFormatting.GREEN + I18n.format(HorseStaysCommand.ENABLED.getDesc());
 	        }
 	
-	        CowboyUp.mc.player.sendMessage((ITextComponent) new StringTextComponent(m));
+	        mc.player.sendMessage((ITextComponent) new StringTextComponent(m));
 		}
     }
 	

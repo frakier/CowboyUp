@@ -43,8 +43,6 @@ public class CowboyUp {
 	
 	private static final Logger LOGGER = LogManager.getLogger();
 	
-	public static Minecraft mc = Minecraft.getInstance();
-	
 
     public CowboyUp() {
     	if (Files.notExists(Paths.get("config", CONFIG_FILE))){

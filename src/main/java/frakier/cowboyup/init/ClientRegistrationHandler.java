@@ -26,6 +26,8 @@ public class ClientRegistrationHandler {
 	public static boolean inti = true;
 	private static final Logger LOGGER = LogManager.getLogger();
 	
+	public static Minecraft mc = Minecraft.getInstance();
+	
 	public static void setupClient() {
 		
 	}
@@ -46,7 +48,7 @@ public class ClientRegistrationHandler {
     					target.getEntity().getType() == EntityType.MULE) {
         			
             		Entity horse = (AbstractHorseEntity) event.player.getRidingEntity();
-            			if (((AbstractHorseEntity) horse).isHorseSaddled() && horse.isRidingOrBeingRiddenBy(CowboyUp.mc.player)) {
+            			if (((AbstractHorseEntity) horse).isHorseSaddled() && horse.isRidingOrBeingRiddenBy(mc.player)) {
     	        			HorseSwim.TickEvent(event);
     	        		}
     			}
@@ -80,7 +82,7 @@ public class ClientRegistrationHandler {
         @SubscribeEvent
         public static void onMount(EntityMountEvent event) {
         	
-        	if (event.getEntityMounting().equals(CowboyUp.mc.player) && Minecraft.getInstance().isGameFocused() && (!Minecraft.getInstance().isGamePaused())) {
+        	if (event.getEntityMounting().equals(mc.player) && Minecraft.getInstance().isGameFocused() && (!Minecraft.getInstance().isGamePaused())) {
         		
         		Entity target = event.getEntityBeingMounted().getEntity();
 	        		
