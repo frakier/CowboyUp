@@ -33,7 +33,7 @@ public class CowboyUp {
 	
 //	TODO: see if you can make the horse water breathing temporarily or move the eye level up half a block.
     public static final String MODID = "cowboyup";
-	public static final String MOD_VERSION = "2.0.0";
+	public static final String MOD_VERSION = "2.0.1";
 	public static final String MOD_NAME = "CowboyUp";
 	public static final String CONFIG_FILE = MODID+"-common.toml";
 	public static boolean firstRun = false;
@@ -67,12 +67,12 @@ public class CowboyUp {
         @SubscribeEvent(priority= EventPriority.NORMAL, receiveCanceled=true)
         public static void clientTickEvent(final PlayerTickEvent event) {
         	//make sure there is a player, a horse 
-        	if (event.player != null && event.player.getRidingEntity() != null) {
+        	if (event.player != null && (AbstractHorseEntity) event.player.getRidingEntity() != null) {
         		//and the player is riding the horse
-        		Entity horse = event.player.getRidingEntity();
-        		if (horse.isRidingOrBeingRiddenBy(CowboyUp.player)) {
-        			HorseSwim.TickEvent(event);
-        		}
+        		Entity horse = (AbstractHorseEntity) event.player.getRidingEntity();
+        			if (((AbstractHorseEntity) horse).isHorseSaddled() && horse.isRidingOrBeingRiddenBy(CowboyUp.player)) {
+	        			HorseSwim.TickEvent(event);
+	        		}
         	}
         	
         	if (Minecraft.getInstance().isGameFocused() && (!Minecraft.getInstance().isGamePaused())) {

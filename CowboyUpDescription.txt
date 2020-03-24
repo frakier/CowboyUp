@@ -1,0 +1,41 @@
+CowboyUp
+
+Forge mod, client side only.
+
+Control are bound like this by default [you can always go in and escape/blank them if you wish].
+	HorseSwimsWithRider * [on keypad]
+	HorseStaysCommand / [on keypad]
+	ReturnLeash - [on keypad]
+	
+When the mod starts the status of the separate functions are displayed after the first run and a
+config is created you can disable this if you want by editing the config.
+
+Current Goals...
+1. Swim with the horse for a time/distance.
+		{configurable} swim with horse {default is true}
+		{configurable}...the time/distance is in blocks but is also tied to ticks [every 30 ticks counts as a block traveled as well].
+		{configurable}...swimming is slow
+		{configurable}...wading is a little faster
+
+		Note: Wading does not count as swimming but you have to leave the water to reset the swim time.
+	
+2. The horse should stay when you get off.
+		{configurable} horse stays when dismounting {default is true}
+		The code is there but it just does not seem to take [apply] some times.
+		So I basically call the code a couple of times to get past lag it seems to work
+		but we are on a small server, time will tell.
+	
+		Note: If you log out and back into a single player world the horse will start to wander.
+		Still need to check on the server.
+	
+3. Leads should not pop off in some random direction
+		{configurable} for the lead to be added back to your inventory if it can.
+	
+Future Goals...
+	Add a hobble or stake that keeps the horse in one spot.
+	Set the hobble up on world load to look for the nearest horse within a set number of 
+	blocks and tether the horse to the spot, or maybe require the horse to be named.
+	Who knows.
+	
+	Make a custom window for config so I only need one key bound in controls.
+	
