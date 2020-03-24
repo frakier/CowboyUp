@@ -15,6 +15,7 @@ import frakier.cowboyup.worker.LeashReturn;
 import frakier.cowboyup.worker.HorseStays;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.horse.AbstractHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.api.distmarker.Dist;
@@ -67,12 +68,20 @@ public class CowboyUp {
         @SubscribeEvent(priority= EventPriority.NORMAL, receiveCanceled=true)
         public static void clientTickEvent(final PlayerTickEvent event) {
         	//make sure there is a player, a horse 
-        	if (event.player != null && (AbstractHorseEntity) event.player.getRidingEntity() != null) {
-        		//and the player is riding the horse
-        		Entity horse = (AbstractHorseEntity) event.player.getRidingEntity();
-        			if (((AbstractHorseEntity) horse).isHorseSaddled() && horse.isRidingOrBeingRiddenBy(CowboyUp.player)) {
-	        			HorseSwim.TickEvent(event);
-	        		}
+        	if (event.player != null && event.player.getRidingEntity() != null) {
+        		
+        		Entity target = event.player.getRidingEntity();
+        		
+        		//and the player is riding a horse, donkey or mule
+        		if (target.getEntity().getType() == EntityType.HORSE || 
+    					target.getEntity().getType() == EntityType.DONKEY || 
+    					target.getEntity().getType() == EntityType.MULE) {
+        			
+            		Entity horse = (AbstractHorseEntity) event.player.getRidingEntity();
+            			if (((AbstractHorseEntity) horse).isHorseSaddled() && horse.isRidingOrBeingRiddenBy(CowboyUp.player)) {
+    	        			HorseSwim.TickEvent(event);
+    	        		}
+    			}
         	}
         	
         	if (Minecraft.getInstance().isGameFocused() && (!Minecraft.getInstance().isGamePaused())) {
@@ -103,12 +112,22 @@ public class CowboyUp {
         
         @SubscribeEvent
         public static void onMount(EntityMountEvent event) {
+        	
         	if (event.getEntityMounting().equals(player) && Minecraft.getInstance().isGameFocused() && (!Minecraft.getInstance().isGamePaused())) {
-        		AbstractHorseEntity t = (AbstractHorseEntity) event.getEntityBeingMounted().getEntity();
-        		if (t.isHorseSaddled()) {
-        			HorseStays.onMount(event);
-        		}
-        	}
+        		
+        		Entity target = event.getEntityBeingMounted().getEntity();
+	        		
+        		//and the player is riding a horse, donkey or mule
+        		if (target.getEntity().getType() == EntityType.HORSE || 
+    					target.getEntity().getType() == EntityType.DONKEY || 
+    					target.getEntity().getType() == EntityType.MULE) {
+        			
+            		Entity horse = (AbstractHorseEntity) event.getEntityBeingMounted().getEntity();
+            			if (((AbstractHorseEntity) horse).isHorseSaddled()) {
+            				HorseStays.onMount(event);
+    	        		}
+    			}
+	        }
         }
         
         /*
