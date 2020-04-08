@@ -99,7 +99,8 @@ public class HorseSwim {
     		if (underWater) {
     			falling = false;
     			if (horse.isBeingRidden()) {
-    				horse.dismountEntity(event.player);
+    				//dismountEntity
+    				horse.stopRiding();
     			}
     		}
     		if (dryLand) {

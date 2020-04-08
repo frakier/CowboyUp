@@ -55,7 +55,7 @@ public class HorseStays {
 			 if (!horse.isInLava() && !horse.isInWater()) {
 				 if(staycmd==true) {
 					 if (CowboyUp.debug) {LOGGER.info("stay enabled");}
-					 BlockPos setHomePos = new BlockPos(horse.posX, horse.posY, horse.posZ);
+					 BlockPos setHomePos = new BlockPos(horse.getPosX(), horse.getPosY(), horse.getPosZ());
 					 //set the hose home position
 					 horse.setHomePosAndDistance(setHomePos,1);
 					 horse.setHomePosAndDistance(setHomePos,1);
