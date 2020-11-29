@@ -11,6 +11,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.passive.horse.AbstractHorseEntity;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -55,7 +56,7 @@ public class HorseStays {
 			 if (!horse.isInLava() && !horse.isInWater()) {
 				 if(staycmd==true) {
 					 if (CowboyUp.debug) {LOGGER.info("stay enabled");}
-					 BlockPos setHomePos = new BlockPos(horse.posX, horse.posY, horse.posZ);
+					 BlockPos setHomePos = new BlockPos(horse.getPosX(), horse.getPosY(), horse.getPosZ());
 					 //set the hose home position
 					 horse.setHomePosAndDistance(setHomePos,1);
 					 horse.setHomePosAndDistance(setHomePos,1);
@@ -99,7 +100,7 @@ public class HorseStays {
 	            m = m + (Object) TextFormatting.GREEN + I18n.format(HorseStaysCommand.ENABLED.getDesc());
 	        }
 	
-	        mc.player.sendMessage((ITextComponent) new StringTextComponent(m));
+	        mc.player.sendMessage((ITextComponent) new StringTextComponent(m), Util.DUMMY_UUID);
 		}
     }
 	

@@ -17,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Util;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -154,7 +155,7 @@ public class LeashReturn {
 	            m = m + (Object) TextFormatting.GREEN + I18n.format(LeashReturns.ENABLED.getDesc());
 	        }
 	
-	        mc.player.sendMessage((ITextComponent) new StringTextComponent(m));
+	        mc.player.sendMessage((ITextComponent) new StringTextComponent(m), Util.DUMMY_UUID);
 		}
     }
 	

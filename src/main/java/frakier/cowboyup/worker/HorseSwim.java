@@ -11,8 +11,9 @@ import org.apache.logging.log4j.LogManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.passive.horse.AbstractHorseEntity;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -99,7 +100,8 @@ public class HorseSwim {
     		if (underWater) {
     			falling = false;
     			if (horse.isBeingRidden()) {
-    				horse.dismountEntity(event.player);
+    				//dismountEntity
+    				horse.stopRiding();
     			}
     		}
     		if (dryLand) {
@@ -132,7 +134,7 @@ public class HorseSwim {
     			boolean jumping = horse.isHorseJumping();
 	    		
 	        	if (watersEdge && !jumping) {
-	    			horse.travel(new Vec3d(nextStepBlock));
+	    			horse.travel(new Vector3d(nextStepBlock.getX(), nextStepBlock.getY(), nextStepBlock.getZ()));
 	    		}
     		}
 	    	
@@ -193,7 +195,7 @@ public class HorseSwim {
 	            m = m + (Object) TextFormatting.GREEN + I18n.format(HorseSwimsWithRider.ENABLED.getDesc());
 	        }
 	
-	        mc.player.sendMessage((ITextComponent) new StringTextComponent(m));
+	        mc.player.sendMessage((ITextComponent) new StringTextComponent(m), Util.DUMMY_UUID);
     	}
     }
     

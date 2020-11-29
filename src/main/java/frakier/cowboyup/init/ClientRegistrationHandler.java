@@ -3,7 +3,6 @@ package frakier.cowboyup.init;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import frakier.cowboyup.CowboyUp;
 import frakier.cowboyup.worker.HorseStays;
 import frakier.cowboyup.worker.HorseSwim;
 import frakier.cowboyup.worker.LeashReturn;
